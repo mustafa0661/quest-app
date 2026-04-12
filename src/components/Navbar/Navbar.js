@@ -56,6 +56,20 @@ function Navbar() {
             >
               User Profile
             </Box>
+            <Box
+              component={Link}
+              to={`/auth/login`}
+              sx={{
+                textDecoration: 'none',
+                color: 'white',
+                fontWeight: 'bold',
+                '&:hover': {
+                  color: 'lightblue',
+                },
+              }}
+            >
+              Login
+            </Box>
           </Toolbar>
         </AppBar>
       </Box>

@@ -2,7 +2,6 @@ import React from "react";
 import Post from "../Post/Post";
 import { useState, useEffect } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
-import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import PostForm from "../Post/PostForm";
 
@@ -10,6 +9,10 @@ function Home() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [postList, setPostList] = useState([])
+
+  const token = localStorage.getItem("token")
+  console.log("token:", token);
+  
 
   const refreshPosts = () => {
     fetch("/posts")
