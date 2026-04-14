@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useLogin } from '../../hooks/useLogin';
 import { LoginRequest } from '../../types/auth.types';
 import './Login.css';
@@ -14,7 +14,9 @@ const Login: React.FC = () => {
     password: '',
   });
 
-  const { isLoading, error, login, clearError } = useLogin();
+  const [successMessage, setSuccessMessage] = useState<string>('');
+
+  const { isLoading, error, isSuccess, login, clearError } = useLogin();
 
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,21 +26,32 @@ const Login: React.FC = () => {
         [name]: value,
       }));
       
-      // Clear error when user starts typing
+      // Clear messages when user starts typing
       if (error) {
         clearError();
       }
+      if (successMessage) {
+        setSuccessMessage('');
+      }
     },
-    [error, clearError]
+    [error, clearError, successMessage]
   );
 
   const handleSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+      setSuccessMessage('');
       await login(formData);
     },
     [formData, login]
   );
+
+  // Show success message when login is successful
+  useEffect(() => {
+    if (isSuccess) {
+      setSuccessMessage('Giriş başarılı, yönlendiriliyorsunuz...');
+    }
+  }, [isSuccess]);
 
   return (
     <div className="login-container">
@@ -46,6 +59,7 @@ const Login: React.FC = () => {
         <h2 className="login-title">Giriş Yap</h2>
         
         {error && <div className="error-message">{error}</div>}
+        {successMessage && <div className="success-message">{successMessage}</div>}
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">

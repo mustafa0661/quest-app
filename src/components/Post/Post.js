@@ -29,7 +29,7 @@ const ExpandMore = styled((props) => {
 }));
 
 function Post(props) {
-  const { title, text, userName, userId, postId, likes } = props;
+  const { title, text, userName, userId, postId, likes, onLike, onComment } = props;
   const [expanded, setExpanded] = useState(false);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -42,6 +42,9 @@ function Post(props) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
     refreshComments();
+    if (onComment) {
+      onComment(postId);
+    }
     console.log(commentList)
   };
 
@@ -54,6 +57,9 @@ function Post(props) {
     else {
       deleteLike();
       setLikeCount(likeCount - 1)
+    }
+    if (onLike) {
+      onLike(postId);
     }
       
   }
