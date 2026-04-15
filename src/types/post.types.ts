@@ -39,6 +39,7 @@ export interface Post {
 export interface CreatePostRequest {
   title: string;
   text: string;
+  userId: string | number;
 }
 
 export interface PostsResponse {

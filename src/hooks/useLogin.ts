@@ -46,6 +46,14 @@ export const useLogin = (): UseLoginReturn => {
       // Store auth data
       localStorage.setItem('token', response.token);
       localStorage.setItem('userName', loginData.userName);
+      
+      // Store userId if available from response, otherwise use a default
+      if (response.userId) {
+        localStorage.setItem('userId', String(response.userId));
+      } else {
+        // Fallback to 1 if userId is not in response
+        localStorage.setItem('userId', '1');
+      }
 
       console.log('Login successful!');
       // Set success state (will trigger useEffect to navigate)

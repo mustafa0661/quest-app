@@ -2,6 +2,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import HomePage from './pages/HomePage';
+import PostCreatePage from './pages/PostCreatePage';
 import User from './components/User/User';
 import Navbar from './components/Navbar/Navbar';
 import Login from './features/auth/Login';
@@ -24,6 +25,7 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/posts/create" element={<PostCreatePage />} />
             <Route path="/users/:userId" element={<User />} />
             <Route path="/auth/login" element={<Login />} />
           </Routes>

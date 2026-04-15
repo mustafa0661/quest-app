@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Button, Box, Typography, Card } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
+import AddIcon from '@mui/icons-material/Add';
 import './HomePage.css';
 
 /**
@@ -24,7 +25,12 @@ const HomePage: React.FC = () => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
+    localStorage.removeItem('userId');
     navigate('/auth/login');
+  };
+
+  const handleCreatePost = () => {
+    navigate('/posts/create');
   };
 
   return (
@@ -50,7 +56,8 @@ const HomePage: React.FC = () => {
               <ul>
                 <li>✅ Kullanıcı Girişi (Login)</li>
                 <li>✅ Ana Sayfaya Yönlendirme</li>
-                <li>🔄 Gönderiler (Backend geliştirme aşamasında)</li>
+                <li>✅ Post Oluşturma</li>
+                <li>🔄 Post Listesi (Yakında)</li>
                 <li>🔄 Profil (Backend geliştirme aşamasında)</li>
               </ul>
             </Box>
@@ -65,7 +72,16 @@ const HomePage: React.FC = () => {
             </Box>
           </Box>
 
-          <Box className="welcome-actions">
+          <Box className="welcome-actions" sx={{ display: 'flex', gap: 2, flexDirection: 'column' }}>
+            <Button
+              variant="contained"
+              color="success"
+              startIcon={<AddIcon />}
+              onClick={handleCreatePost}
+              fullWidth
+            >
+              Yeni Post Oluştur
+            </Button>
             <Button
               variant="contained"
               color="error"
