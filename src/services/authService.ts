@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { LoginRequest, LoginResponse } from '../types/auth.types';
+import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from '../types/auth.types';
 
 /**
  * API Service for Authentication
@@ -40,6 +40,21 @@ class AuthService {
       return response.data;
     } catch (error: any) {
       const message = error.response?.data?.message || 'Login failed';
+      throw new Error(message);
+    }
+  }
+
+  /**
+   * Register new user
+   * @param registerData - Username and password
+   * @returns Register response
+   */
+  async register(registerData: RegisterRequest): Promise<RegisterResponse> {
+    try {
+      const response = await axios.post<RegisterResponse>('/users', registerData);
+      return response.data;
+    } catch (error: any) {
+      const message = error.response?.data?.message || 'Registration failed';
       throw new Error(message);
     }
   }

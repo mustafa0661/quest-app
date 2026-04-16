@@ -14,6 +14,17 @@ export interface LoginResponse {
   message?: string;
 }
 
+export interface RegisterRequest {
+  userName: string;
+  password: string;
+}
+
+export interface RegisterResponse {
+  message: string;
+  userName?: string;
+  id?: string | number;
+}
+
 export interface AuthError {
   message: string;
   status?: number;
